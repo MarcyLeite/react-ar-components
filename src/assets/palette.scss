@@ -1,0 +1,20 @@
+:root {
+	// Color
+	--c-white: #fff;
+
+	--c-primary: #dc8add;
+	--c-bg: #121212;
+	--c-surface: color-mix(in hsl, var(--c-bg), var(--c-white) 7%);
+	--c-text: var(--c-white);
+
+	// Size
+	--s-round: 24px;
+
+	--s-xsmall: 4px;
+	--s-small: 8px;
+	--s-medium: 16px;
+	--s-large: 24px;
+	--s-xl: 32px;
+	--s-xxl: 46px;
+	--s-xxxl: 64px;
+}
