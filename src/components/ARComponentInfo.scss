@@ -1,0 +1,15 @@
+.component-label {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.component-telemetry-table {
+	box-shadow: var(--elevation-1);
+	td {
+		border: 2px solid var(--c-text);
+		padding: 0.5rem;
+		text-align: right;
+		border-radius: 20px;
+	}
+}

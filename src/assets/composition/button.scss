@@ -1,0 +1,21 @@
+button {
+	color: var(--c-bg);
+	background-color: var(--c-text);
+
+	padding: var(--s-small) var(--s-medium);
+	border-radius: 1000px;
+
+	box-shadow: var(--elevation-1);
+
+	&.transparent {
+		color: var(--c-text);
+		background-color: transparent;
+
+		box-shadow: none;
+	}
+
+	&.icon-wrapper {
+		padding: var(--s-small);
+		line-height: 0;
+	}
+}

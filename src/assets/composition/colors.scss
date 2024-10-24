@@ -1,0 +1,29 @@
+.bg-default {
+	color: var(--c-background);
+}
+
+.bg-ar {
+	background-color: rgba(0, 0, 0, 0.75);
+	backdrop-filter: blur(16px);
+}
+
+.bg-ar-revert {
+	background-color: rgba(255, 255, 255, 0.33);
+	backdrop-filter: blur(16px);
+}
+
+.bg-primary {
+	color: var(--c-primary);
+}
+
+.text-default {
+	color: var(--c-text);
+}
+
+.text-revert {
+	color: var(--c-background);
+}
+
+.text-primary {
+	color: var(--c-primary);
+}
