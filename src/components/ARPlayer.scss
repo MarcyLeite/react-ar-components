@@ -1,0 +1,19 @@
+.speed-menu {
+	top: 0;
+	left: 50%;
+	margin: 0 auto;
+	position: absolute;
+	transform: translate(-50%, -100%);
+
+	transition-property: visibility, opacity;
+	transition-duration: 0.25s;
+	transition-timing-function: ease-in;
+
+	opacity: 1;
+	visibility: visible;
+
+	&.hide {
+		opacity: 0;
+		visibility: hidden;
+	}
+}

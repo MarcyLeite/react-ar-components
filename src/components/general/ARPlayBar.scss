@@ -1,0 +1,54 @@
+.playbar-container {
+	position: relative;
+	width: 100%;
+	height: 8px;
+	&:hover {
+		cursor: pointer;
+		& > .playbar-selector {
+			opacity: 1;
+		}
+		& > .playbar-played-line {
+			background: var(--c-primary);
+			box-shadow: 0 0 4px rgba($color: #d09eff, $alpha: 0.5);
+		}
+	}
+}
+.playbar-line {
+	position: absolute;
+	width: 100%;
+	height: 4px;
+	top: 0;
+	bottom: 0;
+	margin: auto 0;
+	background: rgba(255, 255, 255, 0.2);
+}
+
+.playbar-played-line {
+	position: absolute;
+	width: 0;
+	height: 4px;
+	top: 0;
+	bottom: 0;
+	margin: auto 0;
+	background: rgba(255, 255, 255, 0.7);
+	transition-property: background, height;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-in;
+}
+
+.playbar-selector {
+	position: absolute;
+	width: 12px;
+	aspect-ratio: 1;
+
+	top: 0;
+	bottom: 0;
+	margin: auto 0;
+	left: 0;
+
+	background: rgba(255, 255, 255, 1);
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: 0.1s;
+	transition-timing-function: ease-in;
+}
