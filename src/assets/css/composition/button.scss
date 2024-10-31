@@ -1,0 +1,36 @@
+button {
+	color: var(--c-bg);
+	background-color: var(--c-text);
+
+	padding: var(--s-small) var(--s-medium);
+	border-radius: 1000px;
+	transition: all var(--animation-fast-ease);
+
+	text-align: center;
+
+	&:hover {
+		transform: translate(0, -2px);
+		box-shadow: var(--elevation-3);
+	}
+
+	&.transparent {
+		color: var(--c-text);
+		background-color: transparent;
+
+		box-shadow: none;
+
+		&:hover {
+			transform: none;
+			background-color: rgba(200, 200, 200, 0.15);
+		}
+
+		&.selected {
+			background-color: rgba(200, 200, 200, 0.3);
+		}
+	}
+
+	&.icon-wrapper {
+		padding: var(--s-small);
+		line-height: 0;
+	}
+}

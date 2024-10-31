@@ -1,12 +1,16 @@
+@import url(./reset.scss);
+@import url(./palette.scss);
+@import url(./fonts.scss);
+@import url(./composition/index.scss);
+
 body {
 	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	font-family: 'Roboto';
+
 	background: var(--c-bg);
 	color: var(--c-text);
 	font-size: var(--s-medium);
+	overflow: hidden;
 }
 
 code {
@@ -14,8 +18,10 @@ code {
 }
 
 button {
+	font-family: 'Ubuntu';
 	cursor: pointer;
 	line-height: 1;
+	background-color: white;
 }
 
 body,

@@ -1,0 +1,10 @@
+.ar-container {
+	background-color: var(--c-ar-bg);
+	backdrop-filter: blur(20px);
+	border: 1px solid var(--c-ar-border);
+}
+
+.pill {
+	border: 1px solid var(--c-ar-border);
+	border-radius: var(--s-round-pill);
+}
