@@ -1,0 +1,23 @@
+.transition-expand {
+	transition:
+		width 0.2s ease-in-out,
+		height 0.2s ease-in-out,
+		opacity 0.3s ease-in 0.2s;
+}
+
+.transition-hide {
+	transition:
+		width 0.2s ease-in-out 0.1s,
+		height 0.2s ease-in-out 0.1s,
+		opacity 0.1s ease-in;
+}
+
+.component-telemetry-table {
+	box-shadow: var(--elevation-1);
+	td {
+		border: 2px solid var(--c-text);
+		padding: 0.5rem;
+		text-align: right;
+		border-radius: 20px;
+	}
+}
