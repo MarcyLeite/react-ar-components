@@ -9,6 +9,7 @@ import ARTooltip from './general/ARTooltip'
 
 type Props = {
 	speeds: number[]
+	onCurrentTimeChange?: (currentTime: number) => void
 }
 
 const secondsToTimestring = (time: number) => {
@@ -26,7 +27,7 @@ const secondsToTimestring = (time: number) => {
 	return timeString
 }
 
-const ARPlayer = ({ speeds: speedList }: Props) => {
+const ARPlayer = ({ speeds: speedList, onCurrentTimeChange }: Props) => {
 	const [maxTime, setMaxTime] = useState(0)
 	const [currentTime, setCurrentTime] = useState(0)
 
@@ -60,6 +61,11 @@ const ARPlayer = ({ speeds: speedList }: Props) => {
 		requestRef.current = requestAnimationFrame(executeFrame)
 		return () => cancelAnimationFrame(requestRef.current)
 	})
+	useEffect(() => {
+		const fromDateElement = fromDateRef.current
+		if (!onCurrentTimeChange || !fromDateElement) return
+		onCurrentTimeChange(fromDateElement.valueAsNumber + currentTime)
+	}, [currentTime, maxTime, onCurrentTimeChange])
 
 	const jump = () => {
 		const fromDateElement = fromDateRef.current

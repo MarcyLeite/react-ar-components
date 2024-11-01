@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.scss'
 import Icon from '@mdi/react'
 import { mdiEye, mdiPencil } from '@mdi/js'
@@ -6,13 +6,15 @@ import ARTab from './components/general/ARTab'
 import ARPanel from './components/general/ARPanel'
 import ARComponentInfo from './components/ARComponentInfo'
 import ARPlayer from './components/ARPlayer'
+import ARGeneralInfo from './components/ARGeneralInfo'
 
 function App() {
+	const [currentTime, setCurrentTime] = useState(0)
 	return (
 		<div className="App">
 			<div className="grid-center overlay-wrapper">
 				<div className="overlay gap-2 p-relative grow-1 ma-3 justify-center">
-					<div className="view-wrapper d-flex justify-end align-center">
+					<div className="view-wrapper d-flex justify-start align-center">
 						<ARTab tabs={['Tab #1', 'Tab #2']}></ARTab>
 					</div>
 					<div className="options-wrapper d-flex justify-end align-center">
@@ -20,6 +22,12 @@ function App() {
 							<button className="button elevate-2">Help</button>
 							<button className="button elevate-2">Teprom</button>
 						</div>
+					</div>
+
+					<div className="general-info-wrapper">
+						<ARPanel className="pa-3 border-round">
+							<ARGeneralInfo currentTime={currentTime}></ARGeneralInfo>
+						</ARPanel>
 					</div>
 
 					<div className="component-info-wrapper">
@@ -39,7 +47,10 @@ function App() {
 						</ARPanel>
 					</div>
 					<div className="player-wrapper">
-						<ARPlayer speeds={[1, 2, 4, 16, 64, 128]}></ARPlayer>
+						<ARPlayer
+							speeds={[1, 2, 4, 16, 64, 128]}
+							onCurrentTimeChange={setCurrentTime}
+						></ARPlayer>
 					</div>
 				</div>
 			</div>

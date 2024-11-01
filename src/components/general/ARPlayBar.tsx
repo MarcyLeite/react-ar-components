@@ -59,6 +59,10 @@ const ARPlayBar = ({
 		if (isDrag) return
 		const containerElement = containerRef.current
 		if (!containerElement) return
+		if (maxTime === 0) {
+			updateBarLength(containerElement.clientWidth)
+			return
+		}
 		const offset = (currentTime * containerElement.clientWidth) / maxTime
 		updateBarLength(offset)
 	}, [currentTime, isDrag, maxTime])
