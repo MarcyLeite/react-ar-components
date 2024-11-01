@@ -2,9 +2,10 @@ import ARPanel from './general/ARPanel'
 import ARPlayBar from './general/ARPlayBar'
 import Icon from '@mdi/react'
 import { mdiPlay, mdiPlaySpeed, mdiDebugStepOver, mdiPause } from '@mdi/js'
-import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import './ARPlayer.scss'
+import ARTooltip from './general/ARTooltip'
 
 type Props = {
 	speeds: number[]
@@ -26,15 +27,21 @@ const secondsToTimestring = (time: number) => {
 }
 
 const ARPlayer = ({ speeds: speedList }: Props) => {
-	const maxTime = 367630
+	const [maxTime, setMaxTime] = useState(0)
 	const [currentTime, setCurrentTime] = useState(0)
+
 	const [speed, setSpeed] = useState(1)
+	const [showSpeedMenu, setShowSpeedMenu] = useState(false)
+	const [showJumpMenu, setShowJumpMenu] = useState(false)
+
 	const [isPlaying, setIsPlaying] = useState(false)
 
 	const requestRef = useRef(0)
 	const frameLastRef = useRef(0)
 	const isHoldingRef = useRef(false)
-	const speedMenuRef = useRef<HTMLDivElement>(null)
+
+	const fromDateRef = useRef<HTMLInputElement>(null)
+	const toDateRef = useRef<HTMLInputElement>(null)
 
 	const executeFrame = (frameCurrent: number) => {
 		if (isPlaying && !isHoldingRef.current) {
@@ -49,15 +56,26 @@ const ARPlayer = ({ speeds: speedList }: Props) => {
 		requestRef.current = requestAnimationFrame(executeFrame)
 	}
 
-	const closeSpeedMenu = (e: Event) => {
-		if (e.target === speedMenuRef.current) return
-		window.removeEventListener('click', closeSpeedMenu)
-	}
-
 	useEffect(() => {
 		requestRef.current = requestAnimationFrame(executeFrame)
 		return () => cancelAnimationFrame(requestRef.current)
 	})
+
+	const jump = () => {
+		const fromDateElement = fromDateRef.current
+		const toDateElement = toDateRef.current
+
+		if (
+			!fromDateElement ||
+			!toDateElement ||
+			[toDateElement.valueAsNumber, fromDateElement.valueAsNumber].includes(NaN)
+		)
+			return
+		setMaxTime(toDateElement.valueAsNumber - fromDateElement.valueAsNumber)
+		setCurrentTime(0)
+	}
+
+	useEffect(jump, [fromDateRef, toDateRef])
 
 	return (
 		<ARPanel className="pa-3 elevate-3 border-round">
@@ -79,18 +97,85 @@ const ARPlayer = ({ speeds: speedList }: Props) => {
 							<Icon path={isPlaying ? mdiPause : mdiPlay} size={1} />
 						</button>
 						<span>
-							{secondsToTimestring(currentTime)} / {secondsToTimestring(maxTime)}
+							{`${secondsToTimestring(currentTime)} / ${secondsToTimestring(maxTime)}`}
 						</span>
 					</div>
 					<div className="d-flex align-center gap-1">
 						<div className="p-relative">
-							<button className="icon-wrapper transparent hover-shake">
+							<ARTooltip active={showSpeedMenu} setActive={setShowSpeedMenu}>
+								<div className="d-flex gap-1">
+									{speedList.map((speedValue, i) => (
+										<button
+											onClick={() => setSpeed(speedValue)}
+											className={
+												'transparent' +
+												(speedValue === speed ? ' selected' : '')
+											}
+											key={i}
+										>
+											{speedValue}x
+										</button>
+									))}
+								</div>
+							</ARTooltip>
+							<button
+								onClick={(e) => {
+									e.stopPropagation()
+									setShowSpeedMenu(!showSpeedMenu)
+								}}
+								className="icon-wrapper transparent hover-shake"
+							>
 								<Icon path={mdiPlaySpeed} size={1} />
 							</button>
 						</div>
-						<button className="icon-wrapper transparent hover-shake">
-							<Icon path={mdiDebugStepOver} size={1}></Icon>
-						</button>
+						<div className="p-relative">
+							<ARTooltip active={showJumpMenu} setActive={setShowJumpMenu}>
+								<div className="d-flex pa-1 gap-1 align-center">
+									<div
+										style={{
+											display: 'grid',
+											gridTemplateColumns: 'min-content 1fr',
+											gridAutoRows: 'min-content 1fr',
+											alignItems: 'center',
+											textAlign: 'right',
+											gap: '0.5rem',
+										}}
+									>
+										<label>From</label>
+										<input
+											ref={fromDateRef}
+											type="datetime-local"
+											onChange={(e) => {
+												if (
+													!toDateRef.current ||
+													(toDateRef.current.value !== '' &&
+														toDateRef.current.valueAsNumber >
+															e.target.valueAsNumber)
+												)
+													return
+
+												toDateRef.current.valueAsNumber =
+													e.target.valueAsNumber + 5000 * 60
+											}}
+										/>
+										<label>To</label>
+										<input ref={toDateRef} type="datetime-local" />
+									</div>
+									<button onClick={jump} className="transparent">
+										Jump
+									</button>
+								</div>
+							</ARTooltip>
+							<button
+								onClick={(e) => {
+									e.stopPropagation()
+									setShowJumpMenu(!showJumpMenu)
+								}}
+								className="icon-wrapper transparent hover-shake"
+							>
+								<Icon path={mdiDebugStepOver} size={1}></Icon>
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>

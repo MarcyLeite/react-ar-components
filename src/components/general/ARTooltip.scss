@@ -1,0 +1,8 @@
+.ar-modal {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	transition-property: visibility, opacity;
+	transition-timing-function: ease-in;
+	transition-duration: 0.25s;
+}
